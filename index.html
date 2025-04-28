@@ -1,40 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown>
+          <div>## REACT HOOKS</div>
+        </section>
+        <section data-markdown>
+          <textarea data-template>                      
+            Hooks allow you to use the state and other
+          React features without writing classes. Hooks
+          appeared in React 16.8 on February 6, 2019.
+          Hooks save us from:
+            • Wrapper hell
+            • Huge components
+            • Confusing classes          
+          </textarea>
+        </section>
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+                #### Wrapper hell
+               Before hooks appeared, it was impossible
+              to reuse state in other components.
+              The solution were:
+              • render props
+              • higher-order component
+              These solutions were too cumbersome and complex.
+            </textarea>
+          </section>
+          <section>
+            <div class="r-stack">
+              <img src="./assets/hell.png" width="600" height="450" />
+            </div>
+          </section>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+              ## Huge components
+             Hooks allow you to split a single component into small
+            functions according to their purpose, rather than based
+            on life cycles.
+            • large components are difficult to test
+            • not always a large component can be broken
+            down into smaller ones
+          </textarea>
+        </section>
+        <section data-markdown>
+          <div>## Confusing classes</div>
+          Classes are difficult for both people and machines to understand. We
+          love using this and losing context. 🙈
+        </section>
+        <section data-markdown>
+          <div>## useState()</div>
+          Allows functional components to access the React state
+        </section>
+        <section>
+          <section>
+            <pre>
+			      <code data-trim data-noescape>
+              <script type="text/template">
+			  const App = > {
+					const [userName, setUserName] = useState('');
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+					return <div></div>;
+				}
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+				export default App;
+			        </script>
+            </code>
+          </pre>
+          </section>
+          <section>
+            <pre>
+                Importing the hook from the React library.
+              The useState hook accepts only one argument, this argument can
+              be absolutely any data type.
+			        <code data-trim data-noescape>
+                <script type="text/template">
+			import { useState } from 'react';
+			
+			const App = > {
+				const [name, setName] = useState('');
+
+				const handleName = () => { 
+					setName('Mikhail')
+				}
+
+				return ( 
+					<div>
+						<p>{ name }</p>
+						<button onClick = {handleName}>Show name</button>
+					</div>
+				);
+			  }
+
+			  export default App;
+		            </script>
+              </code>
+      <div>
+        1.Calling the useState function returns a tuple of two elements.
+      The current value and the functions to update it.
+      <div>
+        2.Using the setName function, we can
+        set a new state value.
+      </div>
+      3.The component renders the default state
+      once.
+      4.important: the hook is asynchronous
+      </div>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <pre>
+              Inside the setter of the useState function, we can get the value of the previous state
+          <code data-trim data-noescape><script type="text/template">
+          const App = > {
+            const [counter, setCounter] = useState(0);
+
+            const handleCounter = ()=> {
+              setCounter(previousCounter =>
+               return previousCounter + 1;
+            })
+            }
+  
+            return (
+              <div>
+                <p>{counter}</p>
+                <button type = 'button' onClick = {handleCounter}></button>
+              </div>;
+            )
+          }
+  
+          export default App;
+        </script></code></pre>
+        </section>
+        <section>
+          <pre>
+            Importing the hook from the React library.
+            The useState hook accepts only one argument, this argument can be absolutely any data type.
+			<code data-trim data-noescape>
+        <script type="text/template">
+			import { useState } from 'react';
+			
+			const App = > {
+				const [name, setName]=useState('');
+        const [car, setCar]=useState<{model: string}>({model:'BMW'});
+
+				const handleName = () => { 
+					setName('Mikhail')
+				}
+
+				return ( 
+					<div>
+						<p>{name}</p>
+            <p>{car.model}</p>
+						<button onClick = {handleName}>Show name</button>
+					</div>
+				);
+			  }
+
+			  export default App;
+		  </script>
+    </code>
+    <div>
+      1.Since useState returns a tuple, we can destructure
+      it and give the variable and function absolutely any name.
+      <div>
+        2.We type the state values in the hook using generic <T></T>
+      </div>
+      3.Hooks in the component can be declared many times
+    </div>
+            </pre>
+        </section>
+        <section>
+          <pre style="width: 100%;">
+          <dir style="text-align: center;">Typing useState using generic under the hood</dir> 
+          <code data-trim data-noescape style="white-space: normal;">
+            <script type="text/template">    
+              const useState<S>(initialState:S|() => S):[S,Dispatch<SetStateAction<S>>]      
+            </script>
+          </code>
+        </pre>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
 </html>
